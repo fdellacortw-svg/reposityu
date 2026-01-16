@@ -532,6 +532,69 @@
       background: #fff;
     }
 
+    /* Fix with AI Button */
+    .fix-ai-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 10px 18px;
+      border: none;
+      font-size: 0.85em;
+      cursor: pointer;
+      position: relative;
+      background: linear-gradient(90deg, #5bfcc4, #f593e4, #71a4f0);
+      border-radius: 12px;
+      color: #fff;
+      transition: all 0.3s ease;
+      box-shadow:
+        inset 0px 0px 5px #ffffffa9,
+        inset 0px 35px 30px #000,
+        0px 5px 10px #000000cc;
+      text-shadow: 1px 1px 1px #000;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+    }
+
+    .fix-ai-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      border-radius: 12px;
+      filter: blur(0);
+      z-index: -1;
+      box-shadow: none;
+      background: conic-gradient(
+        #00000000 80deg,
+        #40baf7,
+        #f34ad7,
+        #5bfcc4,
+        #00000000 280deg
+      );
+      transition: all 0.3s ease;
+    }
+
+    .fix-ai-btn:hover::before {
+      filter: blur(15px);
+    }
+
+    .fix-ai-btn:active::before {
+      filter: blur(5px);
+      transform: translateY(1px);
+    }
+
+    .fix-ai-btn:active {
+      box-shadow:
+        inset 0px 0px 5px #ffffffa9,
+        inset 0px 35px 30px #000;
+      margin-top: 3px;
+    }
+
+    .fix-ai-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
     /* Mode Switch for Premium */
     .mode-switch-container {
       display: none;
@@ -1414,6 +1477,17 @@
         </label>
       </div>
 
+      <div class="setting-item">
+        <div>
+          <div class="setting-label">Remake with AI</div>
+          <div class="setting-desc">Use Gemini AI to enhance deobfuscation</div>
+        </div>
+        <label class="switch">
+          <input class="toggle" type="checkbox" id="settingRemakeAI" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
       <button class="close-settings" id="closeSettingsBtn">Save Settings</button>
     </div>
   </div>
@@ -1563,6 +1637,15 @@
                   </svg>
                 </span>
               </button>
+              <button class="fix-ai-btn" data-index="${index}">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <g fill="none">
+                    <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"></path>
+                    <path d="M9.107 5.448c.598-1.75 3.016-1.803 3.725-.159l.06.16l.807 2.36a4 4 0 0 0 2.276 2.411l.217.081l2.36.806c1.75.598 1.803 3.016.16 3.725l-.16.06l-2.36.807a4 4 0 0 0-2.412 2.276l-.081.216l-.806 2.361c-.598 1.75-3.016 1.803-3.724.16l-.062-.16l-.806-2.36a4 4 0 0 0-2.276-2.412l-.216-.081l-2.36-.806c-1.751-.598-1.804-3.016-.16-3.724l.16-.062l2.36-.806A4 4 0 0 0 8.22 8.025l.081-.216zM11 6.094l-.806 2.36a6 6 0 0 1-3.49 3.649l-.25.091l-2.36.806l2.36.806a6 6 0 0 1 3.649 3.49l.091.25l.806 2.36l.806-2.36a6 6 0 0 1 3.49-3.649l.25-.09l2.36-.807l-2.36-.806a6 6 0 0 1-3.649-3.49l-.09-.25zM19 2a1 1 0 0 1 .898.56l.048.117l.35 1.026l1.027.35a1 1 0 0 1 .118 1.845l-.118.048l-1.026.35l-.35 1.027a1 1 0 0 1-1.845.117l-.048-.117l-.35-1.026l-1.027-.35a1 1 0 0 1-.118-1.845l.118-.048l1.026-.35l.35-1.027A1 1 0 0 1 19 2" fill="currentColor"></path>
+                  </g>
+                </svg>
+                Fix with AI
+              </button>
             </div>
           </div>
           <div class="code-block">${escapeHtml(file.code)}</div>
@@ -1595,6 +1678,72 @@
           downloadFile(idx);
         });
       });
+
+      document.querySelectorAll('.fix-ai-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const idx = parseInt(this.getAttribute('data-index'), 10);
+          fixWithAI(idx);
+        });
+      });
+    }
+
+    // Fix with AI function
+    async function fixWithAI(index) {
+      if (index < 0 || index >= deobfuscatedFiles.length) {
+        showToast('Error: File not found');
+        return;
+      }
+
+      showToast('AI is fixing the code...');
+
+      const file = deobfuscatedFiles[index];
+      const originalCode = file.code;
+
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=AIzaSyA_7y84E08jQH8DxZDcPyCnJiMGPaFS4LQ`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{
+                text: `You are a Lua code deobfuscator and beautifier. Analyze this Lua code and improve it by:
+1. Converting hex strings (\\x..) to readable text
+2. Renaming obfuscated variables (like a, b, _0x123) to meaningful names
+3. Removing dead/garbage code
+4. Simplifying complex expressions
+5. Formatting with proper indentation
+6. Adding helpful comments where needed
+
+Code to fix:
+\`\`\`lua
+${originalCode}
+\`\`\`
+
+Return ONLY the improved Lua code with the header "-- made by illusion dev" at the top. Do not include markdown code blocks in your response.`
+              }]
+            }]
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`API Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const fixedCode = data.candidates[0].content.parts[0].text.trim();
+
+        // Update the file
+        deobfuscatedFiles[index].code = fixedCode;
+        saveData();
+        renderFiles();
+        showToast('Code fixed with AI!');
+
+      } catch (error) {
+        console.error('AI fix error:', error);
+        showToast('Error: Could not fix with AI');
+      }
     }
 
     // ==================== LUA BEAUTIFIER & DEOBFUSCATOR ====================
@@ -1754,12 +1903,9 @@ ${code}`;
       const startTime = Date.now();
 
       try {
-        // Deobfuscate and beautify the code
-        const deobfuscatedCode = deobfuscateAndBeautify(fileContent);
-        
-        // Calculate time taken
-        const endTime = Date.now();
-        const timeTaken = Math.round((endTime - startTime) / 1000);
+        // Just add header without beautifying
+        const header = `-- made by illusion dev\n\n`;
+        const deobfuscatedCode = header + fileContent;
         
         // Wait for processing time
         await new Promise(resolve => setTimeout(resolve, DEOBFUSCATION_TIME * 1000));
@@ -1788,10 +1934,10 @@ ${code}`;
       } catch (error) {
         console.error('Processing error:', error);
         
-        // Create error file with beautified code anyway
+        // Create error file
         const newFile = {
           name: 'Deobfuscated ' + fileCounter,
-          code: `-- made by illusion dev\n-- Beautified Code\n-- ================================\n\n${fileContent}`,
+          code: `-- made by illusion dev\n\n${fileContent}`,
           date: new Date().toLocaleString(),
           processTime: DEOBFUSCATION_TIME
         };
