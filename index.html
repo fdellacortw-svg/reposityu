@@ -78,24 +78,26 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding-left: 2em;
-      padding-right: 2em;
-      padding-bottom: 0.4em;
+      padding: 2em;
       background-color: #171717;
       border-radius: 25px;
       transition: .4s ease-in-out;
+      width: 100%;
+      max-width: 320px;
     }
 
-    .form:hover {
-      transform: scale(1.05);
-      border: 1px solid black;
+    @media (min-width: 768px) {
+      .form:hover {
+        transform: scale(1.05);
+        border: 1px solid black;
+      }
     }
 
     #heading {
       text-align: center;
-      margin: 2em;
+      margin: 1em 0 1.5em;
       color: rgb(255, 255, 255);
-      font-size: 1.2em;
+      font-size: 1.1em;
     }
 
     .field {
@@ -116,6 +118,7 @@
       height: 1.3em;
       width: 1.3em;
       fill: white;
+      flex-shrink: 0;
     }
 
     .input-field {
@@ -125,21 +128,20 @@
       width: 100%;
       color: #d3d3d3;
       font-family: 'Poppins', sans-serif;
+      font-size: 16px;
     }
 
     .form .btn {
       display: flex;
       justify-content: center;
       flex-direction: row;
-      margin-top: 2.5em;
+      margin-top: 2em;
+      margin-bottom: 1em;
     }
 
     .button1 {
-      padding: 0.5em;
-      padding-left: 1.1em;
-      padding-right: 1.1em;
+      padding: 0.5em 1.5em;
       border-radius: 5px;
-      margin-right: 0.5em;
       border: none;
       outline: none;
       transition: .4s ease-in-out;
@@ -147,6 +149,7 @@
       color: white;
       cursor: pointer;
       font-family: 'Poppins', sans-serif;
+      font-size: 1em;
     }
 
     .button1:hover {
@@ -170,7 +173,7 @@
     .main-app {
       display: none;
       min-height: 100vh;
-      padding: 20px;
+      padding: 15px;
     }
 
     .main-app.visible {
@@ -182,13 +185,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px 0;
+      padding: 15px 0;
       gap: 0;
     }
 
     /* Settings Button in Home */
     .settings-btn-container {
-      margin-top: 30px;
+      margin-top: 25px;
       margin-bottom: 20px;
       display: flex;
       justify-content: center;
@@ -201,8 +204,8 @@
       --bg-color: #2a2a2a;
       --main-color: #dedede;
       position: relative;
-      width: 180px;
-      height: 45px;
+      width: 160px;
+      height: 42px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -219,17 +222,17 @@
     }
 
     .settings-open-btn .button__text {
-      transform: translateX(35px);
+      transform: translateX(30px);
       color: var(--font-color);
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .settings-open-btn .button__icon {
       position: absolute;
-      transform: translateX(138px);
+      transform: translateX(120px);
       height: 100%;
-      width: 40px;
+      width: 38px;
       background-color: var(--bg-color-sub);
       display: flex;
       align-items: center;
@@ -237,7 +240,7 @@
     }
 
     .settings-open-btn .svg {
-      width: 24px;
+      width: 22px;
       fill: var(--main-color);
       transition: transform 0.4s ease;
     }
@@ -251,7 +254,7 @@
     }
 
     .settings-open-btn:hover .button__icon {
-      width: 178px;
+      width: 158px;
       transform: translateX(0);
     }
 
@@ -265,8 +268,8 @@
     }
 
     .flip-switch-container {
-      --card-width: 110px;
-      --card-height: 120px;
+      --card-width: 90px;
+      --card-height: 100px;
       --switch-bg: rgba(255, 255, 255, 0.1);
       --switch-border-color: rgba(255, 255, 255, 0.2);
       --text-color: #ffffff;
@@ -277,6 +280,13 @@
       display: grid;
       place-content: center;
       font-family: "Poppins", sans-serif;
+    }
+
+    @media (min-width: 768px) {
+      .flip-switch-container {
+        --card-width: 110px;
+        --card-height: 120px;
+      }
     }
 
     .flip-switch {
@@ -300,7 +310,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
       z-index: 2;
       color: var(--inactive-text-color);
@@ -317,11 +327,19 @@
     .flip-switch .switch-button svg {
       transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       filter: drop-shadow(0 2px 3px var(--icon-shadow-color));
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
     }
 
-    .flip-switch .switch-button span { font-size: 14px; font-weight: 500; letter-spacing: 0.5px; }
+    .flip-switch .switch-button span { font-size: 12px; font-weight: 500; letter-spacing: 0.5px; }
+
+    @media (min-width: 768px) {
+      .flip-switch .switch-button svg {
+        width: 24px;
+        height: 24px;
+      }
+      .flip-switch .switch-button span { font-size: 14px; }
+    }
 
     .flip-switch #switch-opt-1:checked ~ [for="switch-opt-1"],
     .flip-switch #switch-opt-2:checked ~ [for="switch-opt-2"] {
@@ -401,6 +419,7 @@
       z-index: 500;
       align-items: center;
       justify-content: center;
+      padding: 15px;
     }
 
     .settings-modal.visible {
@@ -411,10 +430,12 @@
       background: #1a1a1a;
       border-radius: 12px;
       padding: 15px 20px;
-      max-width: 280px;
-      width: 90%;
+      max-width: 300px;
+      width: 100%;
       border: 2px solid #dedede;
       box-shadow: 4px 4px #dedede;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .settings-title {
@@ -431,6 +452,7 @@
       align-items: center;
       padding: 8px 0;
       border-bottom: 1px solid rgba(255,255,255,0.1);
+      gap: 10px;
     }
 
     .setting-item:last-child {
@@ -457,6 +479,7 @@
       align-items: center;
       width: 44px;
       height: 22px;
+      flex-shrink: 0;
     }
 
     .toggle {
@@ -500,14 +523,14 @@
     .close-settings {
       margin-top: 12px;
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       background: #dedede;
       color: #000;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 0.75em;
+      font-size: 0.8em;
       font-family: 'Poppins', sans-serif;
       transition: all 0.3s;
     }
@@ -532,7 +555,7 @@
     .mode-labels {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       color: #888;
       font-size: 0.85em;
     }
@@ -609,17 +632,25 @@
 
     /* Upload Box - unified for both modes */
     .upload-box {
-      width: fit-content;
+      width: 100%;
+      max-width: 400px;
     }
 
     .upload-box-inner {
       cursor: pointer;
       background-color: #333;
-      padding: 30px 70px;
-      border-radius: 40px;
+      padding: 25px 30px;
+      border-radius: 30px;
       border: 2px dashed #666;
       box-shadow: 0px 0px 200px -50px rgba(0, 0, 0, 0.5);
       transition: all 0.3s ease;
+    }
+
+    @media (min-width: 768px) {
+      .upload-box-inner {
+        padding: 30px 70px;
+        border-radius: 40px;
+      }
     }
 
     .upload-box-inner:hover {
@@ -641,10 +672,17 @@
     }
 
     .upload-box-content svg {
-      height: 50px;
+      height: 40px;
       fill: #666;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       transition: all 0.3s;
+    }
+
+    @media (min-width: 768px) {
+      .upload-box-content svg {
+        height: 50px;
+        margin-bottom: 15px;
+      }
     }
 
     .upload-box-inner:hover svg,
@@ -654,8 +692,15 @@
 
     .upload-box-content p {
       color: #eee;
-      font-size: 0.95em;
+      font-size: 0.85em;
       margin: 0;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .upload-box-content p {
+        font-size: 0.95em;
+      }
     }
 
     .upload-box-content input[type="file"] {
@@ -669,6 +714,7 @@
       color: #eee;
       transition: all 0.3s;
       margin-top: 10px;
+      font-size: 0.85em;
     }
 
     .browse-button:hover {
@@ -680,22 +726,31 @@
     .link-input-field {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       margin-top: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .link-input-field input {
       background: rgba(0, 0, 0, 0.3);
       border: none;
       border-radius: 25px;
-      padding: 10px 20px;
+      padding: 10px 15px;
       color: #fff;
       font-family: 'Roboto Mono', monospace;
-      font-size: 0.8em;
+      font-size: 0.75em;
       outline: none;
-      width: 220px;
+      width: 180px;
       text-align: center;
       box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
+    }
+
+    @media (min-width: 768px) {
+      .link-input-field input {
+        width: 220px;
+        font-size: 0.8em;
+      }
     }
 
     .link-input-field input::placeholder {
@@ -713,7 +768,7 @@
       justify-content: center;
       transition: all 0.3s;
       color: #eee;
-      font-size: 0.85em;
+      font-size: 0.8em;
       font-family: 'Poppins', sans-serif;
     }
 
@@ -747,7 +802,13 @@
     /* Content Sections */
     .content-section {
       display: none;
-      padding: 40px 20px;
+      padding: 20px 10px;
+    }
+
+    @media (min-width: 768px) {
+      .content-section {
+        padding: 40px 20px;
+      }
     }
 
     .content-section.active { display: flex; flex-direction: column; align-items: center; }
@@ -790,13 +851,11 @@
     }
 
     .processing-container .title {
-      font-size: 1.1em;
+      font-size: 1em;
       color: #fff;
       text-align: center;
       margin-top: 15px;
     }
-
-
 
     @keyframes float {
       0% { transform: translatey(0px); }
@@ -812,9 +871,15 @@
 
     .section-title {
       color: #fff;
-      font-size: 1.5em;
+      font-size: 1.2em;
       margin-bottom: 20px;
       text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        font-size: 1.5em;
+      }
     }
 
     .files-list {
@@ -828,17 +893,29 @@
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 15px;
-      padding: 20px;
+      padding: 15px;
       backdrop-filter: blur(10px);
+    }
+
+    @media (min-width: 768px) {
+      .file-card {
+        padding: 20px;
+      }
     }
 
     .file-header {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 12px;
       margin-bottom: 15px;
-      flex-wrap: wrap;
-      gap: 10px;
+    }
+
+    @media (min-width: 600px) {
+      .file-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
     }
 
     .file-name {
@@ -847,17 +924,21 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      font-size: 0.9em;
+      word-break: break-all;
     }
 
     .file-icon {
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
     }
 
     .file-actions {
       display: flex;
       gap: 10px;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     /* Copy Button */
@@ -888,6 +969,7 @@
       cursor: pointer;
       position: relative;
       outline: none;
+      flex-shrink: 0;
     }
 
     .copy .tooltip {
@@ -967,6 +1049,64 @@
       color: var(--button-hover-text-color);
     }
 
+    /* Delete Button */
+    .delete-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: rgb(20, 20, 20);
+      border: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+      cursor: pointer;
+      transition-duration: .3s;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .delete-btn .svgIcon {
+      width: 12px;
+      transition-duration: .3s;
+    }
+
+    .delete-btn .svgIcon path {
+      fill: white;
+    }
+
+    .delete-btn:hover {
+      width: 90px;
+      border-radius: 50px;
+      transition-duration: .3s;
+      background-color: rgb(255, 69, 69);
+      align-items: center;
+    }
+
+    .delete-btn:hover .svgIcon {
+      width: 30px;
+      transition-duration: .3s;
+      transform: translateY(60%);
+    }
+
+    .delete-btn::before {
+      position: absolute;
+      top: -20px;
+      content: "Delete";
+      color: white;
+      transition-duration: .3s;
+      font-size: 2px;
+    }
+
+    .delete-btn:hover::before {
+      font-size: 12px;
+      opacity: 1;
+      transform: translateY(30px);
+      transition-duration: .3s;
+    }
+
     /* Download Button */
     .download-btn {
       --main-focus: #2d8cf0;
@@ -975,16 +1115,26 @@
       --bg-color: #323232;
       --main-color: #dedede;
       position: relative;
-      width: 150px;
-      height: 40px;
+      width: 130px;
+      height: 36px;
       cursor: pointer;
       display: flex;
       align-items: center;
       border: 2px solid var(--main-color);
-      box-shadow: 4px 4px var(--main-color);
+      box-shadow: 3px 3px var(--main-color);
       background-color: var(--bg-color);
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 768px) {
+      .download-btn {
+        width: 150px;
+        height: 40px;
+        box-shadow: 4px 4px var(--main-color);
+        border-radius: 10px;
+      }
     }
 
     .download-btn, .download-btn .button__icon, .download-btn .button__text {
@@ -992,26 +1142,46 @@
     }
 
     .download-btn .button__text {
-      transform: translateX(21px);
+      transform: translateX(18px);
       color: var(--font-color);
       font-weight: 600;
-      font-size: 14px;
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .download-btn .button__text {
+        transform: translateX(21px);
+        font-size: 14px;
+      }
     }
 
     .download-btn .button__icon {
       position: absolute;
-      transform: translateX(109px);
+      transform: translateX(92px);
       height: 100%;
-      width: 39px;
+      width: 36px;
       background-color: var(--bg-color-sub);
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
+    @media (min-width: 768px) {
+      .download-btn .button__icon {
+        transform: translateX(109px);
+        width: 39px;
+      }
+    }
+
     .download-btn .svg {
-      width: 20px;
+      width: 18px;
       fill: var(--main-color);
+    }
+
+    @media (min-width: 768px) {
+      .download-btn .svg {
+        width: 20px;
+      }
     }
 
     .download-btn:hover {
@@ -1023,8 +1193,14 @@
     }
 
     .download-btn:hover .button__icon {
-      width: 148px;
+      width: 128px;
       transform: translateX(0);
+    }
+
+    @media (min-width: 768px) {
+      .download-btn:hover .button__icon {
+        width: 148px;
+      }
     }
 
     .download-btn:active {
@@ -1035,32 +1211,25 @@
     .code-block {
       background: #1a1a1a;
       border-radius: 10px;
-      padding: 15px;
+      padding: 12px;
       font-family: 'Roboto Mono', monospace;
       color: #fff;
       overflow-x: auto;
       white-space: pre-wrap;
       word-break: break-all;
-      font-size: 0.7em;
+      font-size: 0.65em;
       line-height: 1.4;
-      max-height: 400px;
+      max-height: 300px;
       overflow-y: auto;
       text-align: left;
     }
 
-    .delete-btn {
-      background: #ff4444;
-      border: none;
-      border-radius: 8px;
-      padding: 8px 12px;
-      color: #fff;
-      cursor: pointer;
-      font-size: 0.85em;
-      transition: all 0.3s;
-    }
-
-    .delete-btn:hover {
-      background: #ff6666;
+    @media (min-width: 768px) {
+      .code-block {
+        padding: 15px;
+        font-size: 0.7em;
+        max-height: 400px;
+      }
     }
 
     .code-comment {
@@ -1070,21 +1239,22 @@
     .no-files {
       color: rgba(255, 255, 255, 0.5);
       text-align: center;
-      padding: 40px;
+      padding: 30px 20px;
+      font-size: 0.9em;
     }
 
     .file-date {
       color: rgba(255,255,255,0.4);
       margin-top: 10px;
       display: block;
-      font-size: 0.85em;
+      font-size: 0.8em;
     }
 
     /* Premium Card */
     .premium-card {
       background: linear-gradient(135deg, #5865F2 0%, #7289da 100%);
       border-radius: 20px;
-      padding: 30px;
+      padding: 25px 20px;
       margin-top: 30px;
       text-align: center;
       width: 100%;
@@ -1093,14 +1263,27 @@
 
     .premium-card h3 {
       color: #fff;
-      margin-bottom: 15px;
-      font-size: 1.3em;
+      margin-bottom: 12px;
+      font-size: 1.1em;
     }
 
     .premium-card p {
       color: rgba(255, 255, 255, 0.8);
       margin-bottom: 20px;
-      font-size: 0.95em;
+      font-size: 0.85em;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 768px) {
+      .premium-card {
+        padding: 30px;
+      }
+      .premium-card h3 {
+        font-size: 1.3em;
+      }
+      .premium-card p {
+        font-size: 0.95em;
+      }
     }
 
     /* Discord Join Button */
@@ -1111,8 +1294,8 @@
       --bg-color: #5865F2;
       --main-color: #fff;
       position: relative;
-      width: 180px;
-      height: 45px;
+      width: 160px;
+      height: 42px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -1129,17 +1312,17 @@
     }
 
     .discord-join-btn .button__text {
-      transform: translateX(30px);
+      transform: translateX(25px);
       color: var(--font-color);
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .discord-join-btn .button__icon {
       position: absolute;
-      transform: translateX(138px);
+      transform: translateX(120px);
       height: 100%;
-      width: 40px;
+      width: 38px;
       background-color: var(--bg-color-sub);
       display: flex;
       align-items: center;
@@ -1147,7 +1330,7 @@
     }
 
     .discord-join-btn .svg {
-      width: 24px;
+      width: 22px;
       fill: var(--main-color);
     }
 
@@ -1160,7 +1343,7 @@
     }
 
     .discord-join-btn:hover .button__icon {
-      width: 178px;
+      width: 158px;
       transform: translateX(0);
     }
 
@@ -1172,11 +1355,17 @@
     /* Premium Buttons Container */
     .premium-buttons {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    @media (min-width: 500px) {
+      .premium-buttons {
+        flex-direction: row;
+        gap: 20px;
+      }
     }
 
     /* Admin Premium Button */
@@ -1187,8 +1376,8 @@
       --bg-color: #2a2a2a;
       --main-color: #64ffda;
       position: relative;
-      width: 180px;
-      height: 45px;
+      width: 160px;
+      height: 42px;
       cursor: pointer;
       display: none;
       align-items: center;
@@ -1208,17 +1397,17 @@
     }
 
     .admin-premium-btn .button__text {
-      transform: translateX(22px);
+      transform: translateX(18px);
       color: var(--font-color);
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .admin-premium-btn .button__icon {
       position: absolute;
-      transform: translateX(138px);
+      transform: translateX(120px);
       height: 100%;
-      width: 40px;
+      width: 38px;
       background-color: var(--bg-color-sub);
       display: flex;
       align-items: center;
@@ -1226,7 +1415,7 @@
     }
 
     .admin-premium-btn .svg {
-      width: 24px;
+      width: 22px;
       fill: var(--main-color);
     }
 
@@ -1239,7 +1428,7 @@
     }
 
     .admin-premium-btn:hover .button__icon {
-      width: 178px;
+      width: 158px;
       transform: translateX(0);
     }
 
@@ -1256,50 +1445,18 @@
       transform: translateX(-50%) translateY(100px);
       background: #64ffda;
       color: #000;
-      padding: 15px 30px;
+      padding: 12px 25px;
       border-radius: 10px;
       font-weight: 500;
       transition: transform 0.3s ease;
       z-index: 1000;
+      font-size: 0.9em;
+      text-align: center;
+      max-width: 90%;
     }
 
     .toast.show {
       transform: translateX(-50%) translateY(0);
-    }
-
-    /* User Info Badge */
-    .user-badge {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(255,255,255,0.1);
-      padding: 10px 20px;
-      border-radius: 20px;
-      color: #fff;
-      font-size: 0.85em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .user-badge.premium {
-      background: linear-gradient(135deg, #64ffda, #4de0c2);
-      color: #000;
-    }
-
-    .logout-btn {
-      background: rgba(255,255,255,0.2);
-      border: none;
-      padding: 5px 10px;
-      border-radius: 10px;
-      color: inherit;
-      cursor: pointer;
-      font-size: 0.85em;
-      transition: all 0.3s;
-    }
-
-    .logout-btn:hover {
-      background: rgba(255,255,255,0.3);
     }
 
   </style>
@@ -1337,12 +1494,6 @@
 
   <!-- Main App -->
   <div class="main-app" id="mainApp">
-    <!-- User Badge -->
-    <div class="user-badge" id="userBadge">
-      <span id="userDisplay">User</span>
-      <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-
     <!-- Navigation -->
     <div class="nav-container">
       <div class="flip-switch-container">
@@ -1370,7 +1521,6 @@
           </div>
         </div>
       </div>
-
     </div>
 
     <!-- Home Section -->
@@ -1556,10 +1706,9 @@
   <div class="toast" id="toast">Copied to clipboard!</div>
 
   <script>
-    // User credentials
+    // User credentials - Updated to 9090/9090
     const users = {
-      'ADMIN': { password: 'ADMIN', premium: true },
-      'test': { password: 'test', premium: false }
+      '9090': { password: '9090', premium: true }
     };
 
     let currentUser = null;
@@ -1605,8 +1754,6 @@
       localStorage.removeItem('illusionUser');
     }
 
-
-
     // Loading screen and auto-login
     setTimeout(() => {
       document.getElementById('loadingScreen').classList.add('hidden');
@@ -1616,12 +1763,8 @@
         // Auto login
         document.getElementById('mainApp').classList.add('visible');
         
-        const userBadge = document.getElementById('userBadge');
-        document.getElementById('userDisplay').textContent = currentUser.name + (currentUser.premium ? ' (Premium)' : '');
         if (currentUser.premium) {
-          userBadge.classList.add('premium');
           document.getElementById('modeSwitchContainer').classList.add('visible');
-          document.getElementById('adminPremiumBtn').classList.add('visible');
         }
       } else {
         document.getElementById('loginContainer').classList.add('visible');
@@ -1643,13 +1786,9 @@
         document.getElementById('loginContainer').classList.remove('visible');
         document.getElementById('mainApp').classList.add('visible');
         
-        const userBadge = document.getElementById('userBadge');
-        document.getElementById('userDisplay').textContent = username + (currentUser.premium ? ' (Premium)' : '');
         if (currentUser.premium) {
-          userBadge.classList.add('premium');
           // Show mode switch for premium users
           document.getElementById('modeSwitchContainer').classList.add('visible');
-          document.getElementById('adminPremiumBtn').classList.add('visible');
         }
         
         document.getElementById('loginError').classList.remove('show');
@@ -1681,20 +1820,6 @@
       }
     }
 
-    function logout() {
-      currentUser = null;
-      clearSavedUser();
-      document.getElementById('mainApp').classList.remove('visible');
-      document.getElementById('loginContainer').classList.add('visible');
-      document.getElementById('username').value = '';
-      document.getElementById('password').value = '';
-      document.getElementById('userBadge').classList.remove('premium');
-      document.getElementById('modeSwitchContainer').classList.remove('visible');
-      // Reset mode to drag
-      document.getElementById('modeToggle').checked = false;
-      toggleMode();
-    }
-
     // Submit link for premium users
     function submitLink() {
       const linkInput = document.getElementById('linkInput');
@@ -1723,8 +1848,6 @@
         fileName = 'linked_script.lua';
       }
 
-      // For links, we'll store the link itself as content
-      // In a real scenario, you'd fetch the content from the URL
       const content = `-- Content from: ${link}\n-- Unable to fetch remote content in browser\n-- Link saved: ${link}`;
       
       linkInput.value = '';
@@ -1785,11 +1908,9 @@
             content = '-- Empty file or unable to read content\n-- File: ' + file.name;
           }
           
-          console.log('File read successfully:', file.name, 'Content length:', content.length);
           startDeobfuscation(file.name, content);
         };
         reader.onerror = function(error) {
-          console.error('Error reading file:', error);
           showToast('Error reading file');
         };
         reader.readAsText(file, 'UTF-8');
@@ -1812,8 +1933,6 @@
       if (!fileContent || fileContent.trim() === '') {
         fileContent = '-- No content available\n-- File: ' + fileName;
       }
-      
-      console.log('Starting deobfuscation for:', fileName, 'Content length:', fileContent.length);
 
       // Simple 10 second wait with just the animation
       setTimeout(() => {
@@ -1826,8 +1945,6 @@
           code: finalContent,
           date: new Date().toLocaleString()
         });
-        
-        console.log('File saved:', fileName, 'Content length:', finalContent.length);
         
         // Save to localStorage
         saveFiles();
@@ -1861,12 +1978,20 @@
       return div.innerHTML;
     }
 
+    // Delete file function
+    function deleteFile(index) {
+      deobfuscatedFiles.splice(index, 1);
+      saveFiles();
+      renderFiles();
+      showToast('File deleted!');
+    }
+
     function renderFiles() {
       const filesList = document.getElementById('filesList');
       const noFiles = document.getElementById('noFiles');
       const adminPremiumBtn = document.getElementById('adminPremiumBtn');
 
-      // Show Admin Premium button for premium users
+      // Show Admin Premium button only for premium users
       if (currentUser && currentUser.premium) {
         adminPremiumBtn.classList.add('visible');
       } else {
@@ -1875,6 +2000,7 @@
 
       if (deobfuscatedFiles.length === 0) {
         noFiles.style.display = 'block';
+        filesList.innerHTML = '<div class="no-files">No deobfuscated files yet. Upload a file from Home!</div>';
         return;
       }
 
@@ -1884,7 +2010,6 @@
       deobfuscatedFiles.forEach((file, index) => {
         const fileCard = document.createElement('div');
         fileCard.className = 'file-card';
-        // Show full content, not truncated
         const codeContent = file.code;
         fileCard.innerHTML = `
           <div class="file-header">
@@ -1909,6 +2034,9 @@
                     </g>
                   </svg>
                 </span>
+              </button>
+              <button class="delete-btn" onclick="deleteFile(${index})">
+                <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
               </button>
               <button type="button" class="download-btn" onclick="downloadCode(${index})">
                 <span class="button__text">Download</span>
@@ -1938,41 +2066,39 @@
 
     function downloadCode(index) {
       const file = deobfuscatedFiles[index];
-      if (!file || !file.code) {
-        showToast('Error: No file content available');
+      if (!file) {
+        showToast('Error: File not found');
         return;
       }
       
-      try {
-        const content = file.code;
-        const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-        const url = window.URL.createObjectURL(blob);
-        
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        
-        // Clean filename
-        let fileName = file.name || 'script';
-        if (!fileName.endsWith('.lua')) {
-          fileName = fileName.replace(/\.[^/.]+$/, '') + '.lua';
-        }
-        a.download = 'deobfuscated_' + fileName;
-        
-        document.body.appendChild(a);
-        a.click();
-        
-        // Cleanup
-        setTimeout(() => {
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-        }, 100);
-        
-        showToast('File downloaded!');
-      } catch (error) {
-        console.error('Download error:', error);
-        showToast('Error downloading file');
+      const content = file.code || '';
+      if (!content) {
+        showToast('Error: No content to download');
+        return;
       }
+      
+      // Clean filename
+      let fileName = file.name || 'script.lua';
+      if (!fileName.endsWith('.lua')) {
+        fileName = fileName.replace(/\.[^/.]+$/, '') + '.lua';
+      }
+      fileName = 'deobfuscated_' + fileName;
+      
+      // Create blob and download
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      link.style.display = 'none';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      URL.revokeObjectURL(url);
+      showToast('File downloaded!');
     }
 
     function showToast(message) {
