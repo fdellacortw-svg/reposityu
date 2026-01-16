@@ -86,13 +86,6 @@
       max-width: 320px;
     }
 
-    @media (min-width: 768px) {
-      .form:hover {
-        transform: scale(1.05);
-        border: 1px solid black;
-      }
-    }
-
     #heading {
       text-align: center;
       margin: 1em 0 1.5em;
@@ -630,7 +623,7 @@
       transform: translateX(30px);
     }
 
-    /* Upload Box - unified for both modes */
+    /* Upload Box */
     .upload-box {
       width: 100%;
       max-width: 400px;
@@ -646,19 +639,7 @@
       transition: all 0.3s ease;
     }
 
-    @media (min-width: 768px) {
-      .upload-box-inner {
-        padding: 30px 70px;
-        border-radius: 40px;
-      }
-    }
-
     .upload-box-inner:hover {
-      border-color: #64ffda;
-      box-shadow: 0 0 30px rgba(100, 255, 218, 0.2);
-    }
-
-    .upload-box-inner:focus-within {
       border-color: #64ffda;
       box-shadow: 0 0 30px rgba(100, 255, 218, 0.2);
     }
@@ -678,15 +659,7 @@
       transition: all 0.3s;
     }
 
-    @media (min-width: 768px) {
-      .upload-box-content svg {
-        height: 50px;
-        margin-bottom: 15px;
-      }
-    }
-
-    .upload-box-inner:hover svg,
-    .upload-box-inner:focus-within svg {
+    .upload-box-inner:hover svg {
       fill: #64ffda;
     }
 
@@ -695,12 +668,6 @@
       font-size: 0.85em;
       margin: 0;
       text-align: center;
-    }
-
-    @media (min-width: 768px) {
-      .upload-box-content p {
-        font-size: 0.95em;
-      }
     }
 
     .upload-box-content input[type="file"] {
@@ -744,13 +711,6 @@
       width: 180px;
       text-align: center;
       box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
-    }
-
-    @media (min-width: 768px) {
-      .link-input-field input {
-        width: 220px;
-        font-size: 0.8em;
-      }
     }
 
     .link-input-field input::placeholder {
@@ -805,18 +765,7 @@
       padding: 20px 10px;
     }
 
-    @media (min-width: 768px) {
-      .content-section {
-        padding: 40px 20px;
-      }
-    }
-
     .content-section.active { display: flex; flex-direction: column; align-items: center; }
-
-    /* Hidden file input form */
-    .file-upload-form {
-      display: none;
-    }
 
     /* Processing Animation */
     .processing-container {
@@ -876,12 +825,6 @@
       text-align: center;
     }
 
-    @media (min-width: 768px) {
-      .section-title {
-        font-size: 1.5em;
-      }
-    }
-
     .files-list {
       display: flex;
       flex-direction: column;
@@ -895,12 +838,6 @@
       border-radius: 15px;
       padding: 15px;
       backdrop-filter: blur(10px);
-    }
-
-    @media (min-width: 768px) {
-      .file-card {
-        padding: 20px;
-      }
     }
 
     .file-header {
@@ -942,111 +879,28 @@
     }
 
     /* Copy Button */
-    .copy {
-      --button-bg: #ffffff;
-      --button-hover-bg: #464646;
-      --button-text-color: #474747;
-      --button-hover-text-color: #8bb9fe;
-      --button-border-radius: 10px;
-      --button-diameter: 36px;
-      --button-outline-width: 1px;
-      --button-outline-color: rgb(141, 141, 141);
-      --tooltip-bg: #f4f3f3;
-      --toolptip-border-radius: 4px;
-      --tooltip-font-family: Menlo, Roboto Mono, monospace;
-      --tooltip-font-size: 12px;
-      --tootip-text-color: rgb(50, 50, 50);
-      --tooltip-padding-x: 7px;
-      --tooltip-padding-y: 7px;
-      --tooltip-offset: 8px;
-      box-sizing: border-box;
-      width: var(--button-diameter);
-      height: var(--button-diameter);
-      border-radius: var(--button-border-radius);
-      background-color: var(--button-bg);
-      color: var(--button-text-color);
+    .copy-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background-color: #fff;
+      color: #474747;
       border: none;
       cursor: pointer;
-      position: relative;
-      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
       flex-shrink: 0;
     }
 
-    .copy .tooltip {
-      position: absolute;
-      opacity: 0;
-      visibility: hidden;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      font: var(--tooltip-font-size) var(--tooltip-font-family);
-      color: var(--tootip-text-color);
-      background: var(--tooltip-bg);
-      padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
-      border-radius: var(--toolptip-border-radius);
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    .copy-btn:hover {
+      background-color: #64ffda;
     }
 
-    .copy .tooltip::before {
-      content: attr(data-text-initial);
-    }
-
-    .copy .tooltip::after {
-      content: "";
-      position: absolute;
-      bottom: calc(var(--tooltip-padding-y) / 2 * -1);
-      width: var(--tooltip-padding-y);
-      height: var(--tooltip-padding-y);
-      background: inherit;
-      left: 50%;
-      transform: translateX(-50%) rotate(45deg);
-      z-index: -999;
-      pointer-events: none;
-    }
-
-    .copy svg {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    .copy .checkmark {
-      display: none;
-    }
-
-    .copy:hover .tooltip,
-    .copy:focus:not(:focus-visible) .tooltip {
-      opacity: 1;
-      visibility: visible;
-      top: calc((100% + var(--tooltip-offset)) * -1);
-    }
-
-    .copy:focus:not(:focus-visible) .tooltip::before {
-      content: attr(data-text-end);
-    }
-
-    .copy:focus:not(:focus-visible) .clipboard {
-      display: none;
-    }
-
-    .copy:focus:not(:focus-visible) .checkmark {
-      display: block;
-    }
-
-    .copy:hover,
-    .copy:focus {
-      background-color: var(--button-hover-bg);
-    }
-
-    .copy:active {
-      outline: var(--button-outline-width) solid var(--button-outline-color);
-    }
-
-    .copy:hover svg {
-      color: var(--button-hover-text-color);
+    .copy-btn svg {
+      width: 18px;
+      height: 18px;
     }
 
     /* Delete Button */
@@ -1128,15 +982,6 @@
       flex-shrink: 0;
     }
 
-    @media (min-width: 768px) {
-      .download-btn {
-        width: 150px;
-        height: 40px;
-        box-shadow: 4px 4px var(--main-color);
-        border-radius: 10px;
-      }
-    }
-
     .download-btn, .download-btn .button__icon, .download-btn .button__text {
       transition: all 0.3s;
     }
@@ -1146,13 +991,6 @@
       color: var(--font-color);
       font-weight: 600;
       font-size: 12px;
-    }
-
-    @media (min-width: 768px) {
-      .download-btn .button__text {
-        transform: translateX(21px);
-        font-size: 14px;
-      }
     }
 
     .download-btn .button__icon {
@@ -1166,22 +1004,9 @@
       justify-content: center;
     }
 
-    @media (min-width: 768px) {
-      .download-btn .button__icon {
-        transform: translateX(109px);
-        width: 39px;
-      }
-    }
-
     .download-btn .svg {
       width: 18px;
       fill: var(--main-color);
-    }
-
-    @media (min-width: 768px) {
-      .download-btn .svg {
-        width: 20px;
-      }
     }
 
     .download-btn:hover {
@@ -1195,12 +1020,6 @@
     .download-btn:hover .button__icon {
       width: 128px;
       transform: translateX(0);
-    }
-
-    @media (min-width: 768px) {
-      .download-btn:hover .button__icon {
-        width: 148px;
-      }
     }
 
     .download-btn:active {
@@ -1224,18 +1043,6 @@
       text-align: left;
     }
 
-    @media (min-width: 768px) {
-      .code-block {
-        padding: 15px;
-        font-size: 0.7em;
-        max-height: 400px;
-      }
-    }
-
-    .code-comment {
-      color: #6a9955;
-    }
-
     .no-files {
       color: rgba(255, 255, 255, 0.5);
       text-align: center;
@@ -1243,11 +1050,26 @@
       font-size: 0.9em;
     }
 
+    .file-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
     .file-date {
       color: rgba(255,255,255,0.4);
-      margin-top: 10px;
-      display: block;
-      font-size: 0.8em;
+      font-size: 0.75em;
+    }
+
+    .file-time {
+      color: #64ffda;
+      font-size: 0.75em;
+      background: rgba(100, 255, 218, 0.1);
+      padding: 3px 8px;
+      border-radius: 5px;
     }
 
     /* Premium Card */
@@ -1274,18 +1096,6 @@
       line-height: 1.5;
     }
 
-    @media (min-width: 768px) {
-      .premium-card {
-        padding: 30px;
-      }
-      .premium-card h3 {
-        font-size: 1.3em;
-      }
-      .premium-card p {
-        font-size: 0.95em;
-      }
-    }
-
     /* Discord Join Button */
     .discord-join-btn {
       --main-focus: #5865F2;
@@ -1297,7 +1107,7 @@
       width: 160px;
       height: 42px;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       border: 2px solid var(--main-color);
       box-shadow: 4px 4px var(--main-color);
@@ -1352,91 +1162,6 @@
       box-shadow: 0px 0px var(--main-color);
     }
 
-    /* Premium Buttons Container */
-    .premium-buttons {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 15px;
-    }
-
-    @media (min-width: 500px) {
-      .premium-buttons {
-        flex-direction: row;
-        gap: 20px;
-      }
-    }
-
-    /* Admin Premium Button */
-    .admin-premium-btn {
-      --main-focus: #333;
-      --font-color: #fff;
-      --bg-color-sub: #1a1a1a;
-      --bg-color: #2a2a2a;
-      --main-color: #64ffda;
-      position: relative;
-      width: 160px;
-      height: 42px;
-      cursor: pointer;
-      display: none;
-      align-items: center;
-      border: 2px solid var(--main-color);
-      box-shadow: 4px 4px var(--main-color);
-      background-color: var(--bg-color);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .admin-premium-btn.visible {
-      display: inline-flex;
-    }
-
-    .admin-premium-btn, .admin-premium-btn .button__icon, .admin-premium-btn .button__text {
-      transition: all 0.3s;
-    }
-
-    .admin-premium-btn .button__text {
-      transform: translateX(18px);
-      color: var(--font-color);
-      font-weight: 600;
-      font-size: 13px;
-    }
-
-    .admin-premium-btn .button__icon {
-      position: absolute;
-      transform: translateX(120px);
-      height: 100%;
-      width: 38px;
-      background-color: var(--bg-color-sub);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .admin-premium-btn .svg {
-      width: 22px;
-      fill: var(--main-color);
-    }
-
-    .admin-premium-btn:hover {
-      background: var(--bg-color);
-    }
-
-    .admin-premium-btn:hover .button__text {
-      color: transparent;
-    }
-
-    .admin-premium-btn:hover .button__icon {
-      width: 158px;
-      transform: translateX(0);
-    }
-
-    .admin-premium-btn:active {
-      transform: translate(3px, 3px);
-      box-shadow: 0px 0px var(--main-color);
-    }
-
     /* Toast Notification */
     .toast {
       position: fixed;
@@ -1458,7 +1183,6 @@
     .toast.show {
       transform: translateX(-50%) translateY(0);
     }
-
   </style>
 </head>
 <body>
@@ -1525,7 +1249,7 @@
 
     <!-- Home Section -->
     <div class="content-section active" id="homeSection">
-      <!-- Unified Upload Box -->
+      <!-- Upload Box -->
       <div class="upload-box" id="uploadBox">
         <div class="upload-box-inner" id="uploadBoxInner">
           <!-- Drag Mode (default) -->
@@ -1547,7 +1271,7 @@
             <p>Paste Script Link</p>
             <div class="link-input-field">
               <input type="text" id="linkInput" placeholder="https://..." />
-              <button type="button" class="link-submit-btn" onclick="submitLink()">Deobfuscate</button>
+              <button type="button" class="link-submit-btn" id="linkSubmitBtn">Deobfuscate</button>
             </div>
           </div>
         </div>
@@ -1558,7 +1282,7 @@
         <div class="mode-labels">
           <span id="dragLabel" class="active">Drag</span>
           <label class="mode-switch">
-            <input class="toggle" type="checkbox" id="modeToggle" onchange="toggleMode()">
+            <input class="toggle" type="checkbox" id="modeToggle">
             <span class="slider"></span>
           </label>
           <span id="pasteLabel">Paste</span>
@@ -1567,7 +1291,7 @@
 
       <!-- Settings Button -->
       <div class="settings-btn-container" id="settingsBtnHome">
-        <button class="settings-open-btn" onclick="openSettings()">
+        <button class="settings-open-btn" id="settingsOpenBtn">
           <span class="button__text">Settings</span>
           <span class="button__icon">
             <svg class="svg" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
@@ -1576,11 +1300,6 @@
           </span>
         </button>
       </div>
-
-      <!-- File Upload Form (hidden, used for file input) -->
-      <form class="file-upload-form" id="uploadForm" style="display: none;">
-        <input id="fileHidden" type="file" />
-      </form>
 
       <!-- Processing Animation -->
       <div class="processing-container" id="processingContainer">
@@ -1596,32 +1315,20 @@
     <div class="content-section" id="profileSection">
       <div class="profile-section">
         <h2 class="section-title">Deobfuscated Files</h2>
-        <div class="files-list" id="filesList">
-          <div class="no-files" id="noFiles">No deobfuscated files yet. Upload a file from Home!</div>
-        </div>
+        <div class="files-list" id="filesList"></div>
 
         <!-- Premium Card -->
         <div class="premium-card">
           <h3>Read Links Directly?</h3>
           <p>Upgrade to Premium to deobfuscate links directly without uploading files!</p>
-          <div class="premium-buttons">
-            <a href="https://discord.gg/BA78HDbU" target="_blank" class="discord-join-btn">
-              <span class="button__text">Join Discord</span>
-              <span class="button__icon">
-                <svg class="svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                </svg>
-              </span>
-            </a>
-            <div class="admin-premium-btn" id="adminPremiumBtn">
-              <span class="button__text">Admin Premium</span>
-              <span class="button__icon">
-                <svg class="svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                </svg>
-              </span>
-            </div>
-          </div>
+          <a href="https://discord.gg/BA78HDbU" target="_blank" class="discord-join-btn">
+            <span class="button__text">Join Discord</span>
+            <span class="button__icon">
+              <svg class="svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+              </svg>
+            </span>
+          </a>
         </div>
       </div>
     </div>
@@ -1698,7 +1405,7 @@
         </label>
       </div>
 
-      <button class="close-settings" onclick="closeSettings()">Save Settings</button>
+      <button class="close-settings" id="closeSettingsBtn">Save Settings</button>
     </div>
   </div>
 
@@ -1706,19 +1413,12 @@
   <div class="toast" id="toast">Copied to clipboard!</div>
 
   <script>
-    // User credentials - Updated to 9090/9090
-    const users = {
+    // ==================== CONFIGURATION ====================
+    const USERS = {
       '9090': { password: '9090', premium: true }
     };
 
-    let currentUser = null;
-    let deobfuscatedFiles = [];
-    
-    // Counter for file naming
-    let fileCounter = 1;
-
-    // Fixed deobfuscated content - ALWAYS returned for every file
-    const FIXED_DEOBFUSCATED_CODE = `-- illusion dev deobfuscator
+    const FIXED_CODE = `-- illusion dev deobfuscator
 
 local _ = (table and 15795209); -- 15795209
 local CoreGui = game:GetService("CoreGui")
@@ -1817,273 +1517,95 @@ Connection = TextButton.MouseButton1Click:Connect(function(p1_0)
     end) -- true
 end)`;
 
-    // Load saved data from localStorage
-    function loadSavedData() {
-      const savedUser = localStorage.getItem('illusionUser');
-      const savedFiles = localStorage.getItem('illusionFiles');
-      
-      if (savedFiles) {
-        try {
+    const DEOBFUSCATION_TIME = 10; // seconds
+
+    // ==================== STATE ====================
+    let currentUser = null;
+    let deobfuscatedFiles = [];
+    let fileCounter = 1;
+
+    // ==================== DOM ELEMENTS ====================
+    const elements = {
+      loadingScreen: document.getElementById('loadingScreen'),
+      loginContainer: document.getElementById('loginContainer'),
+      loginForm: document.getElementById('loginForm'),
+      loginError: document.getElementById('loginError'),
+      username: document.getElementById('username'),
+      password: document.getElementById('password'),
+      mainApp: document.getElementById('mainApp'),
+      homeSection: document.getElementById('homeSection'),
+      profileSection: document.getElementById('profileSection'),
+      switchOpt1: document.getElementById('switch-opt-1'),
+      switchOpt2: document.getElementById('switch-opt-2'),
+      uploadBox: document.getElementById('uploadBox'),
+      fileInput: document.getElementById('file'),
+      dragModeContent: document.getElementById('dragModeContent'),
+      pasteModeContent: document.getElementById('pasteModeContent'),
+      modeSwitchContainer: document.getElementById('modeSwitchContainer'),
+      modeToggle: document.getElementById('modeToggle'),
+      dragLabel: document.getElementById('dragLabel'),
+      pasteLabel: document.getElementById('pasteLabel'),
+      linkInput: document.getElementById('linkInput'),
+      linkSubmitBtn: document.getElementById('linkSubmitBtn'),
+      settingsBtnHome: document.getElementById('settingsBtnHome'),
+      settingsOpenBtn: document.getElementById('settingsOpenBtn'),
+      settingsModal: document.getElementById('settingsModal'),
+      closeSettingsBtn: document.getElementById('closeSettingsBtn'),
+      processingContainer: document.getElementById('processingContainer'),
+      filesList: document.getElementById('filesList'),
+      toast: document.getElementById('toast')
+    };
+
+    // ==================== STORAGE FUNCTIONS ====================
+    function loadData() {
+      try {
+        const savedFiles = localStorage.getItem('illusionFiles');
+        const savedCounter = localStorage.getItem('illusionCounter');
+        const savedUser = localStorage.getItem('illusionUser');
+
+        if (savedFiles) {
           deobfuscatedFiles = JSON.parse(savedFiles);
-        } catch(e) {
-          deobfuscatedFiles = [];
         }
-      }
-      
-      // Load file counter from localStorage
-      const savedCounter = localStorage.getItem('illusionFileCounter');
-      if (savedCounter) {
-        try {
+        if (savedCounter) {
           fileCounter = parseInt(savedCounter, 10) || 1;
-        } catch(e) {
-          fileCounter = 1;
         }
-      }
-      
-      if (savedUser) {
-        try {
+        if (savedUser) {
           const userData = JSON.parse(savedUser);
-          if (users[userData.name] && users[userData.name].password === userData.password) {
-            currentUser = { name: userData.name, premium: users[userData.name].premium };
+          if (USERS[userData.name] && USERS[userData.name].password === userData.password) {
+            currentUser = { name: userData.name, premium: USERS[userData.name].premium };
             return true;
           }
-        } catch(e) {}
+        }
+      } catch (e) {
+        console.error('Error loading data:', e);
       }
       return false;
     }
 
-    // Save user to localStorage
-    function saveUser(username, password) {
-      localStorage.setItem('illusionUser', JSON.stringify({ name: username, password: password }));
-    }
-
-    // Save files to localStorage
-    function saveFiles() {
-      localStorage.setItem('illusionFiles', JSON.stringify(deobfuscatedFiles));
-      localStorage.setItem('illusionFileCounter', fileCounter.toString());
-    }
-
-    // Clear saved user
-    function clearSavedUser() {
-      localStorage.removeItem('illusionUser');
-    }
-
-    // Loading screen and auto-login
-    setTimeout(() => {
-      document.getElementById('loadingScreen').classList.add('hidden');
-      
-      // Check for saved login
-      if (loadSavedData()) {
-        // Auto login
-        document.getElementById('mainApp').classList.add('visible');
-        
-        if (currentUser.premium) {
-          document.getElementById('modeSwitchContainer').classList.add('visible');
-        }
-      } else {
-        document.getElementById('loginContainer').classList.add('visible');
-      }
-    }, 2500);
-
-    // Login handling
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      
-      if (users[username] && users[username].password === password) {
-        currentUser = { name: username, premium: users[username].premium };
-        
-        // Save login for auto-authentication
-        saveUser(username, password);
-        
-        document.getElementById('loginContainer').classList.remove('visible');
-        document.getElementById('mainApp').classList.add('visible');
-        
-        if (currentUser.premium) {
-          // Show mode switch for premium users
-          document.getElementById('modeSwitchContainer').classList.add('visible');
-        }
-        
-        document.getElementById('loginError').classList.remove('show');
-      } else {
-        document.getElementById('loginError').classList.add('show');
-      }
-    });
-
-    // Mode toggle function
-    function toggleMode() {
-      const toggle = document.getElementById('modeToggle');
-      const dragContent = document.getElementById('dragModeContent');
-      const pasteContent = document.getElementById('pasteModeContent');
-      const dragLabel = document.getElementById('dragLabel');
-      const pasteLabel = document.getElementById('pasteLabel');
-
-      if (toggle.checked) {
-        // Paste mode
-        dragContent.classList.add('hidden');
-        pasteContent.classList.add('active');
-        dragLabel.classList.remove('active');
-        pasteLabel.classList.add('active');
-      } else {
-        // Drag mode
-        dragContent.classList.remove('hidden');
-        pasteContent.classList.remove('active');
-        dragLabel.classList.add('active');
-        pasteLabel.classList.remove('active');
-      }
-    }
-
-    // Submit link for premium users
-    function submitLink() {
-      const linkInput = document.getElementById('linkInput');
-      const link = linkInput.value.trim();
-      
-      if (!link) {
-        showToast('Please enter a valid link');
-        return;
-      }
-
-      if (!currentUser || !currentUser.premium) {
-        showToast('Premium required for link deobfuscation');
-        return;
-      }
-
-      // Extract filename from link or use default
-      let fileName = 'script_from_link.lua';
+    function saveData() {
       try {
-        const url = new URL(link);
-        const pathParts = url.pathname.split('/');
-        const lastPart = pathParts[pathParts.length - 1];
-        if (lastPart && lastPart.includes('.')) {
-          fileName = lastPart;
-        }
+        localStorage.setItem('illusionFiles', JSON.stringify(deobfuscatedFiles));
+        localStorage.setItem('illusionCounter', fileCounter.toString());
       } catch (e) {
-        fileName = 'linked_script.lua';
+        console.error('Error saving data:', e);
       }
-
-      const content = `-- Content from: ${link}\n-- Unable to fetch remote content in browser\n-- Link saved: ${link}`;
-      
-      linkInput.value = '';
-      
-      startDeobfuscation(fileName, content);
     }
 
-    // Handle Enter key in link input
-    document.getElementById('linkInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        submitLink();
+    function saveUser(username, password) {
+      try {
+        localStorage.setItem('illusionUser', JSON.stringify({ name: username, password: password }));
+      } catch (e) {
+        console.error('Error saving user:', e);
       }
-    });
-
-    // Settings
-    function openSettings() {
-      document.getElementById('settingsModal').classList.add('visible');
     }
 
-    function closeSettings() {
-      document.getElementById('settingsModal').classList.remove('visible');
-      showToast('Settings saved!');
-    }
-
-    // Navigation switch
-    const switchOpt1 = document.getElementById('switch-opt-1');
-    const switchOpt2 = document.getElementById('switch-opt-2');
-    const homeSection = document.getElementById('homeSection');
-    const profileSection = document.getElementById('profileSection');
-
-    switchOpt1.addEventListener('change', () => {
-      homeSection.classList.add('active');
-      profileSection.classList.remove('active');
-    });
-
-    switchOpt2.addEventListener('change', () => {
-      profileSection.classList.add('active');
-      homeSection.classList.remove('active');
-      renderFiles();
-    });
-
-    // File upload handling
-    const fileInput = document.getElementById('file');
-    const processingContainer = document.getElementById('processingContainer');
-
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files.length > 0) {
-        const file = e.target.files[0];
-        
-        // Read actual file content
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          let content = event.target.result;
-          
-          // Check if content is valid
-          if (!content || content.trim() === '') {
-            content = '-- Empty file or unable to read content\n-- File: ' + file.name;
-          }
-          
-          startDeobfuscation(file.name, content);
-        };
-        reader.onerror = function(error) {
-          showToast('Error reading file');
-        };
-        reader.readAsText(file, 'UTF-8');
-      }
-    });
-
-    // Make the drag content clickable
-    document.getElementById('dragModeContent').addEventListener('click', () => {
-      document.getElementById('file').click();
-    });
-
-    function startDeobfuscation(fileName, content) {
-      document.getElementById('uploadBox').style.display = 'none';
-      document.getElementById('modeSwitchContainer').style.display = 'none';
-      document.getElementById('settingsBtnHome').style.display = 'none';
-      processingContainer.classList.add('active');
-
-      // Simple 10 second wait with just the animation
+    // ==================== UI FUNCTIONS ====================
+    function showToast(message) {
+      elements.toast.textContent = message;
+      elements.toast.classList.add('show');
       setTimeout(() => {
-        // ALWAYS use the fixed deobfuscated code - ignore the uploaded file content
-        const finalContent = FIXED_DEOBFUSCATED_CODE;
-        
-        // Generate sequential file name
-        const generatedFileName = `Deobfuscated ${fileCounter}`;
-        fileCounter++; // Increment for next file
-        
-        // Save the file with fixed content
-        deobfuscatedFiles.push({
-          name: generatedFileName,
-          code: finalContent,
-          date: new Date().toLocaleString()
-        });
-        
-        console.log('File saved:', generatedFileName, 'Total files:', deobfuscatedFiles.length);
-        
-        // Save to localStorage
-        saveFiles();
-
-        processingContainer.classList.remove('active');
-        document.getElementById('uploadBox').style.display = 'block';
-        document.getElementById('settingsBtnHome').style.display = 'flex';
-        
-        // Restore mode switch for premium users
-        if (currentUser && currentUser.premium) {
-          document.getElementById('modeSwitchContainer').style.display = 'flex';
-        }
-        
-        fileInput.value = '';
-        document.getElementById('linkInput').value = '';
-
-        showToast('Deobfuscation complete! Check Profile.');
-        
-        setTimeout(() => {
-          switchOpt2.checked = true;
-          homeSection.classList.remove('active');
-          profileSection.classList.add('active');
-          renderFiles();
-        }, 1500);
-      }, 10000);
+        elements.toast.classList.remove('show');
+      }, 3000);
     }
 
     function escapeHtml(text) {
@@ -2092,209 +1614,279 @@ end)`;
       return div.innerHTML;
     }
 
-    // Delete file function - globally accessible
-    window.deleteFile = function(index) {
-      if (index >= 0 && index < deobfuscatedFiles.length) {
-        deobfuscatedFiles.splice(index, 1);
-        saveFiles();
-        renderFiles();
-        showToast('File deleted!');
-      } else {
-        showToast('Error: Invalid file index');
-      }
-    };
-
-    // Copy code function - globally accessible
-    window.copyCode = function(index) {
-      if (index >= 0 && index < deobfuscatedFiles.length) {
-        const code = deobfuscatedFiles[index].code;
-        navigator.clipboard.writeText(code).then(() => {
-          showToast('Copied to clipboard!');
-        }).catch(() => {
-          showToast('Error copying to clipboard');
-        });
-      }
-    };
-
-    // Download code function - globally accessible
-    window.downloadCode = function(index) {
-      if (index < 0 || index >= deobfuscatedFiles.length) {
-        showToast('Error: File not found');
-        return;
-      }
-      
-      const file = deobfuscatedFiles[index];
-      const content = file.code || '';
-      
-      if (!content) {
-        showToast('Error: No content to download');
-        return;
-      }
-      
-      // Clean filename
-      let fileName = file.name || 'script.lua';
-      if (!fileName.endsWith('.lua')) {
-        fileName = fileName.replace(/\.[^/.]+$/, '') + '.lua';
-      }
-      fileName = 'deobfuscated_' + fileName;
-      
-      // Create blob and download
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = fileName;
-      link.style.display = 'none';
-      
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
-      URL.revokeObjectURL(url);
-      showToast('File downloaded!');
-    };
-
     function renderFiles() {
-      console.log('renderFiles called, total files:', deobfuscatedFiles.length);
-      const filesList = document.getElementById('filesList');
-      const noFiles = document.getElementById('noFiles');
-      const adminPremiumBtn = document.getElementById('adminPremiumBtn');
-
-      // Show Admin Premium button only for premium users
-      if (currentUser && currentUser.premium) {
-        adminPremiumBtn.classList.add('visible');
-      } else {
-        adminPremiumBtn.classList.remove('visible');
-      }
+      const filesList = elements.filesList;
+      filesList.innerHTML = '';
 
       if (deobfuscatedFiles.length === 0) {
-        console.log('No files to display');
-        noFiles.style.display = 'block';
         filesList.innerHTML = '<div class="no-files">No deobfuscated files yet. Upload a file from Home!</div>';
         return;
       }
 
-      console.log('Rendering files:', deobfuscatedFiles);
-      noFiles.style.display = 'none';
-      filesList.innerHTML = '';
-      
       deobfuscatedFiles.forEach((file, index) => {
-        console.log('Rendering file', index, ':', file.name);
-        const fileCard = document.createElement('div');
-        fileCard.className = 'file-card';
-        fileCard.setAttribute('data-file-index', index);
-        const codeContent = file.code;
-        
-        // Create file header
-        const fileHeader = document.createElement('div');
-        fileHeader.className = 'file-header';
-        
-        // File name
-        const fileName = document.createElement('span');
-        fileName.className = 'file-name';
-        fileName.innerHTML = `
-          <svg class="file-icon" viewBox="0 0 24 24" fill="#64ffda">
-            <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
-          </svg>
-          ${escapeHtml(file.name)}
+        const card = document.createElement('div');
+        card.className = 'file-card';
+        card.innerHTML = `
+          <div class="file-header">
+            <span class="file-name">
+              <svg class="file-icon" viewBox="0 0 24 24" fill="#64ffda">
+                <path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>
+              </svg>
+              ${escapeHtml(file.name)}
+            </span>
+            <div class="file-actions">
+              <button class="copy-btn" data-index="${index}" title="Copy">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>
+              </button>
+              <button class="delete-btn" data-index="${index}" title="Delete">
+                <svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>
+              </button>
+              <button class="download-btn" data-index="${index}">
+                <span class="button__text">Download</span>
+                <span class="button__icon">
+                  <svg class="svg" viewBox="0 0 35 35">
+                    <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
+                    <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
+                    <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class="code-block">${escapeHtml(file.code)}</div>
+          <div class="file-meta">
+            <span class="file-date">Processed: ${file.date}</span>
+            <span class="file-time">⏱ ${file.processTime}s</span>
+          </div>
         `;
-        
-        // File actions container
-        const fileActions = document.createElement('div');
-        fileActions.className = 'file-actions';
-        
-        // Copy button
-        const copyBtn = document.createElement('button');
-        copyBtn.className = 'copy';
-        copyBtn.innerHTML = `
-          <span class="tooltip" data-text-initial="Copy to clipboard" data-text-end="Copied!"></span>
-          <span>
-            <svg class="clipboard" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 6.35 6.35">
-              <g>
-                <path d="M2.43.265c-.3 0-.548.236-.573.53h-.328a.74.74 0 0 0-.735.734v3.822a.74.74 0 0 0 .735.734H4.82a.74.74 0 0 0 .735-.734V1.529a.74.74 0 0 0-.735-.735h-.328a.58.58 0 0 0-.573-.53zm0 .529h1.49c.032 0 .049.017.049.049v.431c0 .032-.017.049-.049.049H2.43c-.032 0-.05-.017-.05-.049V.843c0-.032.018-.05.05-.05zm-.901.53h.328c.026.292.274.528.573.528h1.49a.58.58 0 0 0 .573-.529h.328a.2.2 0 0 1 .206.206v3.822a.2.2 0 0 1-.206.205H1.53a.2.2 0 0 1-.206-.205V1.529a.2.2 0 0 1 .206-.206z" fill="currentColor"></path>
-              </g>
-            </svg>
-            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-              <g>
-                <path d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z" fill="currentColor"></path>
-              </g>
-            </svg>
-          </span>
-        `;
-        copyBtn.addEventListener('click', function() {
-          window.copyCode(index);
+        filesList.appendChild(card);
+      });
+
+      // Add event listeners
+      document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const idx = parseInt(this.getAttribute('data-index'), 10);
+          copyFile(idx);
         });
-        
-        // Delete button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.innerHTML = `<svg viewBox="0 0 448 512" class="svgIcon"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path></svg>`;
-        deleteBtn.addEventListener('click', function() {
-          window.deleteFile(index);
+      });
+
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const idx = parseInt(this.getAttribute('data-index'), 10);
+          deleteFile(idx);
         });
-        
-        // Download button
-        const downloadBtn = document.createElement('button');
-        downloadBtn.type = 'button';
-        downloadBtn.className = 'download-btn';
-        downloadBtn.innerHTML = `
-          <span class="button__text">Download</span>
-          <span class="button__icon">
-            <svg class="svg" viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
-              <path d="M17.5,22.131a1.249,1.249,0,0,1-1.25-1.25V2.187a1.25,1.25,0,0,1,2.5,0V20.881A1.25,1.25,0,0,1,17.5,22.131Z"></path>
-              <path d="M17.5,22.693a3.189,3.189,0,0,1-2.262-.936L8.487,15.006a1.249,1.249,0,0,1,1.767-1.767l6.751,6.751a.7.7,0,0,0,.99,0l6.751-6.751a1.25,1.25,0,0,1,1.768,1.767l-6.752,6.751A3.191,3.191,0,0,1,17.5,22.693Z"></path>
-              <path d="M31.436,34.063H3.564A3.318,3.318,0,0,1,.25,30.749V22.011a1.25,1.25,0,0,1,2.5,0v8.738a.815.815,0,0,0,.814.814H31.436a.815.815,0,0,0,.814-.814V22.011a1.25,1.25,0,1,1,2.5,0v8.738A3.318,3.318,0,0,1,31.436,34.063Z"></path>
-            </svg>
-          </span>
-        `;
-        downloadBtn.addEventListener('click', function() {
-          window.downloadCode(index);
+      });
+
+      document.querySelectorAll('.download-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const idx = parseInt(this.getAttribute('data-index'), 10);
+          downloadFile(idx);
         });
-        
-        // Assemble file actions
-        fileActions.appendChild(copyBtn);
-        fileActions.appendChild(deleteBtn);
-        fileActions.appendChild(downloadBtn);
-        
-        // Assemble file header
-        fileHeader.appendChild(fileName);
-        fileHeader.appendChild(fileActions);
-        
-        // Code block
-        const codeBlock = document.createElement('div');
-        codeBlock.className = 'code-block';
-        codeBlock.textContent = codeContent;
-        
-        // File date
-        const fileDate = document.createElement('small');
-        fileDate.className = 'file-date';
-        fileDate.textContent = 'Processed: ' + file.date;
-        
-        // Assemble file card
-        fileCard.appendChild(fileHeader);
-        fileCard.appendChild(codeBlock);
-        fileCard.appendChild(fileDate);
-        
-        filesList.appendChild(fileCard);
       });
     }
 
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+    // ==================== FILE OPERATIONS ====================
+    function copyFile(index) {
+      if (index < 0 || index >= deobfuscatedFiles.length) {
+        showToast('Error: File not found');
+        return;
+      }
+      navigator.clipboard.writeText(deobfuscatedFiles[index].code).then(() => {
+        showToast('Copied to clipboard!');
+      }).catch(() => {
+        showToast('Error copying to clipboard');
+      });
     }
 
-    // Close settings modal on outside click
-    document.getElementById('settingsModal').addEventListener('click', (e) => {
-      if (e.target.id === 'settingsModal') {
-        closeSettings();
+    function deleteFile(index) {
+      if (index < 0 || index >= deobfuscatedFiles.length) {
+        showToast('Error: File not found');
+        return;
+      }
+      deobfuscatedFiles.splice(index, 1);
+      saveData();
+      renderFiles();
+      showToast('File deleted!');
+    }
+
+    function downloadFile(index) {
+      if (index < 0 || index >= deobfuscatedFiles.length) {
+        showToast('Error: File not found');
+        return;
+      }
+      const file = deobfuscatedFiles[index];
+      const blob = new Blob([file.code], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = file.name + '.lua';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showToast('File downloaded!');
+    }
+
+    function processFile() {
+      // Hide upload, show processing
+      elements.uploadBox.style.display = 'none';
+      elements.modeSwitchContainer.style.display = 'none';
+      elements.settingsBtnHome.style.display = 'none';
+      elements.processingContainer.classList.add('active');
+
+      // Wait 10 seconds
+      setTimeout(() => {
+        // Create new file
+        const newFile = {
+          name: 'Deobfuscated ' + fileCounter,
+          code: FIXED_CODE,
+          date: new Date().toLocaleString(),
+          processTime: DEOBFUSCATION_TIME
+        };
+
+        // Add to array
+        deobfuscatedFiles.push(newFile);
+        fileCounter++;
+
+        // Save to localStorage
+        saveData();
+        
+        // Save flag to show profile on reload
+        localStorage.setItem('illusionShowProfile', 'true');
+
+        // Reload page automatically
+        location.reload();
+
+      }, DEOBFUSCATION_TIME * 1000);
+    }
+
+    // ==================== MODE TOGGLE ====================
+    function toggleMode() {
+      if (elements.modeToggle.checked) {
+        elements.dragModeContent.classList.add('hidden');
+        elements.pasteModeContent.classList.add('active');
+        elements.dragLabel.classList.remove('active');
+        elements.pasteLabel.classList.add('active');
+      } else {
+        elements.dragModeContent.classList.remove('hidden');
+        elements.pasteModeContent.classList.remove('active');
+        elements.dragLabel.classList.add('active');
+        elements.pasteLabel.classList.remove('active');
+      }
+    }
+
+    // ==================== EVENT LISTENERS ====================
+    // Login
+    elements.loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const username = elements.username.value;
+      const password = elements.password.value;
+
+      if (USERS[username] && USERS[username].password === password) {
+        currentUser = { name: username, premium: USERS[username].premium };
+        saveUser(username, password);
+        elements.loginContainer.classList.remove('visible');
+        elements.mainApp.classList.add('visible');
+        if (currentUser.premium) {
+          elements.modeSwitchContainer.classList.add('visible');
+        }
+        elements.loginError.classList.remove('show');
+        renderFiles();
+      } else {
+        elements.loginError.classList.add('show');
       }
     });
+
+    // Navigation
+    elements.switchOpt1.addEventListener('change', () => {
+      elements.homeSection.classList.add('active');
+      elements.profileSection.classList.remove('active');
+    });
+
+    elements.switchOpt2.addEventListener('change', () => {
+      elements.profileSection.classList.add('active');
+      elements.homeSection.classList.remove('active');
+      renderFiles();
+    });
+
+    // File upload
+    elements.dragModeContent.addEventListener('click', () => {
+      elements.fileInput.click();
+    });
+
+    elements.fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        processFile();
+      }
+    });
+
+    // Link submit
+    elements.linkSubmitBtn.addEventListener('click', () => {
+      const link = elements.linkInput.value.trim();
+      if (!link) {
+        showToast('Please enter a valid link');
+        return;
+      }
+      if (!currentUser || !currentUser.premium) {
+        showToast('Premium required for link deobfuscation');
+        return;
+      }
+      processFile();
+    });
+
+    elements.linkInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        elements.linkSubmitBtn.click();
+      }
+    });
+
+    // Mode toggle
+    elements.modeToggle.addEventListener('change', toggleMode);
+
+    // Settings
+    elements.settingsOpenBtn.addEventListener('click', () => {
+      elements.settingsModal.classList.add('visible');
+    });
+
+    elements.closeSettingsBtn.addEventListener('click', () => {
+      elements.settingsModal.classList.remove('visible');
+      showToast('Settings saved!');
+    });
+
+    elements.settingsModal.addEventListener('click', (e) => {
+      if (e.target === elements.settingsModal) {
+        elements.settingsModal.classList.remove('visible');
+      }
+    });
+
+    // ==================== INITIALIZATION ====================
+    setTimeout(() => {
+      elements.loadingScreen.classList.add('hidden');
+
+      if (loadData()) {
+        elements.mainApp.classList.add('visible');
+        if (currentUser.premium) {
+          elements.modeSwitchContainer.classList.add('visible');
+        }
+        
+        // Check if we should show profile after reload
+        const showProfile = localStorage.getItem('illusionShowProfile');
+        if (showProfile === 'true') {
+          localStorage.removeItem('illusionShowProfile');
+          elements.switchOpt2.checked = true;
+          elements.homeSection.classList.remove('active');
+          elements.profileSection.classList.add('active');
+          showToast('Deobfuscation complete!');
+        }
+        
+        renderFiles();
+      } else {
+        elements.loginContainer.classList.add('visible');
+      }
+    }, 2500);
   </script>
 </body>
 </html>
