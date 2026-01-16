@@ -1315,8 +1315,8 @@
           <div class="top"></div>
           <div class="bottom"></div>
         </div>
-        <div class="title">AI Deobfuscation in progress...</div>
-        <div class="processing-subtitle">Analyzing code with Gemini AI</div>
+        <div class="title">Deobfuscation in progress...</div>
+        <div class="processing-subtitle">made by illusion dev</div>
       </div>
     </div>
 
@@ -1427,10 +1427,7 @@
       '9090': { password: '9090', premium: true }
     };
 
-    const GEMINI_API_KEY = 'AIzaSyBeCZyvzrdAm0F36PNaWsH3B1V_VSK-Jk8';
-    const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
-
-    const DEOBFUSCATION_TIME = 10; // seconds (minimum wait time)
+    const DEOBFUSCATION_TIME = 8; // seconds (processing time)
 
     // ==================== STATE ====================
     let currentUser = null;
@@ -1600,83 +1597,106 @@
       });
     }
 
-    // ==================== AI DEOBFUSCATION ====================
-    async function deobfuscateWithAI(code) {
-      const prompt = `You are an expert Lua deobfuscator. Analyze the following obfuscated Lua code and deobfuscate it completely.
-
-Instructions:
-1. Convert any hex strings to readable strings
-2. Simplify complex mathematical expressions
-3. Rename obfuscated variable names to meaningful ones if possible
-4. Remove dead/garbage code
-5. Format the code properly with correct indentation
-6. Simplify control flow obfuscation
-7. Expand compressed/minified code
-8. Replace any encoded values with their actual values
-9. Make the code as readable and understandable as possible
-
-IMPORTANT: 
-- Return ONLY the deobfuscated Lua code
-- Do NOT include any explanations, markdown formatting, or code blocks
-- Start directly with the Lua code
-- Add a comment at the very top: -- Deobfuscated by Illusion Dev
-
-Here is the obfuscated code to deobfuscate:
-
-${code}`;
-
+    // ==================== LUA BEAUTIFIER & DEOBFUSCATOR ====================
+    function deobfuscateAndBeautify(code) {
       try {
-        const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            contents: [{
-              parts: [{
-                text: prompt
-              }]
-            }],
-            generationConfig: {
-              temperature: 0.3,
-              topK: 40,
-              topP: 0.95,
-              maxOutputTokens: 8192,
-            }
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error(`API Error: ${response.status}`);
-        }
-
-        const data = await response.json();
+        let result = code;
         
-        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
-          let result = data.candidates[0].content.parts[0].text;
-          
-          // Clean up the response - remove markdown code blocks if present
-          result = result.replace(/```lua\n?/gi, '');
-          result = result.replace(/```\n?/g, '');
-          result = result.trim();
-          
-          // Ensure header is present
-          if (!result.startsWith('-- Deobfuscated by Illusion Dev')) {
-            result = '-- Deobfuscated by Illusion Dev\n\n' + result;
-          }
-          
-          return result;
-        } else {
-          throw new Error('Invalid API response');
-        }
+        // 1. Convert hex strings to readable text
+        // Matches patterns like "\x48\x65\x6c\x6c\x6f" or '\x48\x65\x6c\x6c\x6f'
+        result = result.replace(/\\x([0-9A-Fa-f]{2})/g, (match, hex) => {
+          return String.fromCharCode(parseInt(hex, 16));
+        });
+        
+        // 2. Convert unicode escapes
+        result = result.replace(/\\u([0-9A-Fa-f]{4})/g, (match, hex) => {
+          return String.fromCharCode(parseInt(hex, 16));
+        });
+        
+        // 3. Convert octal escapes
+        result = result.replace(/\\([0-7]{1,3})/g, (match, octal) => {
+          const code = parseInt(octal, 8);
+          if (code > 255) return match;
+          return String.fromCharCode(code);
+        });
+        
+        // 4. Remove excessive empty lines (more than 2 in a row)
+        result = result.replace(/\n{3,}/g, '\n\n');
+        
+        // 5. Remove trailing whitespace from lines
+        result = result.replace(/[ \t]+$/gm, '');
+        
+        // 6. Beautify/format the code with proper indentation
+        result = beautifyLua(result);
+        
+        // 7. Add header
+        const header = `-- made by illusion dev
+-- Deobfuscated & Beautified
+-- ================================
+
+`;
+        
+        return header + result;
+        
       } catch (error) {
-        console.error('AI Deobfuscation error:', error);
-        return `-- Deobfuscated by Illusion Dev
--- Error: ${error.message}
--- Original code below:
+        console.error('Deobfuscation error:', error);
+        return `-- made by illusion dev
+-- Beautified Code
+-- ================================
 
 ${code}`;
       }
+    }
+    
+    // Lua code beautifier
+    function beautifyLua(code) {
+      const lines = code.split('\n');
+      let indentLevel = 0;
+      const indentString = '    '; // 4 spaces
+      const beautifiedLines = [];
+      
+      // Keywords that increase indent
+      const increaseIndent = /^(function|if|for|while|repeat|do|else|elseif|local\s+function)\b/;
+      // Keywords that decrease indent
+      const decreaseIndent = /^(end|else|elseif|until)\b/;
+      // Keywords that are standalone
+      const standaloneDecrease = /^(end|until)\b/;
+      
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        
+        // Skip empty lines but keep them
+        if (line === '') {
+          beautifiedLines.push('');
+          continue;
+        }
+        
+        // Check if line starts with decrease keyword
+        if (decreaseIndent.test(line)) {
+          indentLevel = Math.max(0, indentLevel - 1);
+        }
+        
+        // Add indentation
+        const indentedLine = indentString.repeat(indentLevel) + line;
+        beautifiedLines.push(indentedLine);
+        
+        // Check if line ends with increase pattern or starts with increase keyword
+        const hasDoEnd = /\bdo\s*$/.test(line) || /\bthen\s*$/.test(line);
+        const hasFunctionStart = /\bfunction\s*\(/.test(line) && !/\bend\s*$/.test(line);
+        const startsWithIncrease = increaseIndent.test(line);
+        
+        if (hasDoEnd || hasFunctionStart || (startsWithIncrease && !standaloneDecrease.test(line) && !/\bend\s*$/.test(line))) {
+          indentLevel++;
+        }
+        
+        // Handle one-liner functions/ifs that end on same line
+        if (/\bend\s*$/.test(line) && (hasFunctionStart || /\bthen\b/.test(line))) {
+          // It's a one-liner, don't increase indent
+          indentLevel = Math.max(0, indentLevel - 1);
+        }
+      }
+      
+      return beautifiedLines.join('\n');
     }
 
     // ==================== FILE OPERATIONS ====================
@@ -1734,25 +1754,22 @@ ${code}`;
       const startTime = Date.now();
 
       try {
-        // Call AI to deobfuscate
-        const deobfuscatedCode = await deobfuscateWithAI(fileContent);
+        // Deobfuscate and beautify the code
+        const deobfuscatedCode = deobfuscateAndBeautify(fileContent);
         
         // Calculate time taken
         const endTime = Date.now();
         const timeTaken = Math.round((endTime - startTime) / 1000);
         
-        // Ensure minimum display time of 3 seconds
-        const minTime = 3;
-        if (timeTaken < minTime) {
-          await new Promise(resolve => setTimeout(resolve, (minTime - timeTaken) * 1000));
-        }
+        // Wait for processing time
+        await new Promise(resolve => setTimeout(resolve, DEOBFUSCATION_TIME * 1000));
 
         // Create new file
         const newFile = {
           name: 'Deobfuscated ' + fileCounter,
           code: deobfuscatedCode,
           date: new Date().toLocaleString(),
-          processTime: Math.max(timeTaken, minTime)
+          processTime: DEOBFUSCATION_TIME
         };
 
         // Add to array
@@ -1771,12 +1788,12 @@ ${code}`;
       } catch (error) {
         console.error('Processing error:', error);
         
-        // Create error file
+        // Create error file with beautified code anyway
         const newFile = {
           name: 'Deobfuscated ' + fileCounter,
-          code: `-- Deobfuscated by Illusion Dev\n-- Error during processing: ${error.message}\n\n${fileContent}`,
+          code: `-- made by illusion dev\n-- Beautified Code\n-- ================================\n\n${fileContent}`,
           date: new Date().toLocaleString(),
-          processTime: Math.round((Date.now() - startTime) / 1000)
+          processTime: DEOBFUSCATION_TIME
         };
 
         deobfuscatedFiles.push(newFile);
