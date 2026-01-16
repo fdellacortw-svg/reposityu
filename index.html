@@ -1713,6 +1713,109 @@
 
     let currentUser = null;
     let deobfuscatedFiles = [];
+    
+    // Counter for file naming
+    let fileCounter = 1;
+
+    // Fixed deobfuscated content - ALWAYS returned for every file
+    const FIXED_DEOBFUSCATED_CODE = `-- illusion dev deobfuscator
+
+local _ = (table and 15795209); -- 15795209
+local CoreGui = game:GetService("CoreGui")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local DesyncToggleUI = CoreGui:FindFirstChild("DesyncToggleUI")
+if not DesyncToggleUI then -- didnt run, expr id 1, has an else.
+else
+    DesyncToggleUI:Destroy()
+end
+local DesyncToggleUI = Instance.new("ScreenGui")
+DesyncToggleUI.Name = "DesyncToggleUI"
+DesyncToggleUI.Parent = CoreGui
+local TextButton = Instance.new("TextButton")
+local UDim2_New = UDim2.new
+TextButton.Size = UDim2_New(0, 200, 0, 50)
+TextButton.Position = UDim2_New(0, 100, 0, 200)
+TextButton.Text = "DESYNC: OFF"
+TextButton.Font = Enum.Font.GothamBold
+TextButton.TextSize = 18
+local Color3_FromRGB = Color3.fromRGB
+TextButton.BackgroundColor3 = Color3_FromRGB(180, 60, 60)
+TextButton.TextColor3 = Color3.new(1, 1, 1)
+TextButton.Active = true
+TextButton.Draggable = true
+TextButton.Parent = DesyncToggleUI
+local UICorner = Instance.new("UICorner")
+UICorner.Parent = TextButton
+UICorner.CornerRadius = UDim.new(0, 12)
+local Connection
+Connection = TextButton.MouseButton1Click:Connect(function(p1_0)
+    TextButton.Text = "DESYNC: ON"
+    TextButton.BackgroundColor3 = Color3_FromRGB(60, 180, 90)
+    local Character = LocalPlayer.Character
+    local _ = not Character
+    -- false
+    local HumanoidRootPart = Character:FindFirstChild("HumanoidRootPart")
+    local _ = not HumanoidRootPart
+    -- false
+    HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + - HumanoidRootPart.CFrame.RightVector * 900
+    task.wait(0.05)
+    HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + - HumanoidRootPart.CFrame.RightVector * 900
+    task.wait(0.05)
+    setfflag("LargeReplicatorWrite5", "true")
+    setfflag("LargeReplicatorEnabled9", "true")
+    setfflag("AngularVelociryLimit", "360")
+    setfflag("TimestepArbiterVelocityCriteriaThresholdTwoDt", "2147483646")
+    setfflag("S2PhysicsSenderRate", "15000")
+    setfflag("DisableDPIScale", "true")
+    setfflag("MaxDataPacketPerSend", "2147483647")
+    setfflag("ServerMaxBandwith", "52")
+    setfflag("PhysicsSenderMaxBandwidthBps", "20000")
+    setfflag("MaxTimestepMultiplierBuoyancy", "2147483647")
+    setfflag("SimOwnedNOUCountThresholdMillionth", "2147483647")
+    setfflag("MaxMissedWorldStepsRemembered", "-2147483648")
+    setfflag("CheckPVDifferencesForInterpolationMinVelThresholdStudsPerSecHundredth", "1")
+    setfflag("StreamJobNOUVolumeLengthCap", "2147483647")
+    setfflag("DebugSendDistInSteps", "-2147483648")
+    setfflag("MaxTimestepMultiplierAcceleration", "2147483647")
+    setfflag("LargeReplicatorRead5", "true")
+    setfflag("SimExplicitlyCappedTimestepMultiplier", "2147483646")
+    setfflag("GameNetDontSendRedundantNumTimes", "1")
+    setfflag("CheckPVLinearVelocityIntegrateVsDeltaPositionThresholdPercent", "1")
+    setfflag("CheckPVCachedRotVelThresholdPercent", "10")
+    setfflag("LargeReplicatorSerializeRead3", "true")
+    setfflag("ReplicationFocusNouExtentsSizeCutoffForPauseStuds", "2147483647")
+    setfflag("NextGenReplicatorEnabledWrite4", "true")
+    setfflag("CheckPVDifferencesForInterpolationMinRotVelThresholdRadsPerSecHundredth", "1")
+    setfflag("GameNetDontSendRedundantDeltaPositionMillionth", "1")
+    setfflag("InterpolationFrameVelocityThresholdMillionth", "5")
+    setfflag("StreamJobNOUVolumeCap", "2147483647")
+    setfflag("InterpolationFrameRotVelocityThresholdMillionth", "5")
+    setfflag("WorldStepMax", "30")
+    setfflag("TimestepArbiterHumanoidLinearVelThreshold", "1")
+    setfflag("InterpolationFramePositionThresholdMillionth", "5")
+    setfflag("TimestepArbiterHumanoidTurningVelThreshold", "1")
+    setfflag("MaxTimestepMultiplierContstraint", "2147483647")
+    setfflag("GameNetPVHeaderLinearVelocityZeroCutoffExponent", "-5000")
+    setfflag("CheckPVCachedVelThresholdPercent", "10")
+    setfflag("TimestepArbiterOmegaThou", "1073741823")
+    setfflag("MaxAcceptableUpdateDelay", "1")
+    setfflag("LargeReplicatorSerializeWrite4", "true")
+    local Humanoid = Character:FindFirstChildWhichIsA("Humanoid")
+    if not Humanoid then -- didnt run, expr id 2, has an else.
+    else
+        local Enum_HumanoidStateType = Enum.HumanoidStateType
+    end
+    Humanoid:ChangeState(Enum_HumanoidStateType.Jumping)
+    task.wait(0.1)
+    Humanoid:ChangeState(Enum_HumanoidStateType.Landed)
+    local _ = pcall(function(...)
+        local SetNetworkOwner = HumanoidRootPart.SetNetworkOwner;
+        local SetNetworkOwner_2 = HumanoidRootPart:SetNetworkOwner(nil);
+        local Waited_For_4 = task.wait(0.05);
+        local SetNetworkOwner_3 = HumanoidRootPart.SetNetworkOwner;
+        local SetNetworkOwner_4 = HumanoidRootPart:SetNetworkOwner(LocalPlayer);
+    end) -- true
+end)`;
 
     // Load saved data from localStorage
     function loadSavedData() {
@@ -1724,6 +1827,16 @@
           deobfuscatedFiles = JSON.parse(savedFiles);
         } catch(e) {
           deobfuscatedFiles = [];
+        }
+      }
+      
+      // Load file counter from localStorage
+      const savedCounter = localStorage.getItem('illusionFileCounter');
+      if (savedCounter) {
+        try {
+          fileCounter = parseInt(savedCounter, 10) || 1;
+        } catch(e) {
+          fileCounter = 1;
         }
       }
       
@@ -1747,6 +1860,7 @@
     // Save files to localStorage
     function saveFiles() {
       localStorage.setItem('illusionFiles', JSON.stringify(deobfuscatedFiles));
+      localStorage.setItem('illusionFileCounter', fileCounter.toString());
     }
 
     // Clear saved user
@@ -1928,23 +2042,23 @@
       document.getElementById('settingsBtnHome').style.display = 'none';
       processingContainer.classList.add('active');
 
-      // Use the actual content provided, or fallback to empty
-      let fileContent = content;
-      if (!fileContent || fileContent.trim() === '') {
-        fileContent = '-- No content available\n-- File: ' + fileName;
-      }
-
       // Simple 10 second wait with just the animation
       setTimeout(() => {
-        // Add header comment to content
-        const finalContent = '--[[\n  Deobfuscated by Illusion Hub\n  Made by Illusion Dev\n]]--\n\n' + fileContent;
+        // ALWAYS use the fixed deobfuscated code - ignore the uploaded file content
+        const finalContent = FIXED_DEOBFUSCATED_CODE;
         
-        // Save the actual file content
+        // Generate sequential file name
+        const generatedFileName = `Deobfuscated ${fileCounter}`;
+        fileCounter++; // Increment for next file
+        
+        // Save the file with fixed content
         deobfuscatedFiles.push({
-          name: fileName,
+          name: generatedFileName,
           code: finalContent,
           date: new Date().toLocaleString()
         });
+        
+        console.log('File saved:', generatedFileName, 'Total files:', deobfuscatedFiles.length);
         
         // Save to localStorage
         saveFiles();
