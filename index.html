@@ -2156,6 +2156,7 @@ end)`;
     };
 
     function renderFiles() {
+      console.log('renderFiles called, total files:', deobfuscatedFiles.length);
       const filesList = document.getElementById('filesList');
       const noFiles = document.getElementById('noFiles');
       const adminPremiumBtn = document.getElementById('adminPremiumBtn');
@@ -2168,15 +2169,18 @@ end)`;
       }
 
       if (deobfuscatedFiles.length === 0) {
+        console.log('No files to display');
         noFiles.style.display = 'block';
         filesList.innerHTML = '<div class="no-files">No deobfuscated files yet. Upload a file from Home!</div>';
         return;
       }
 
+      console.log('Rendering files:', deobfuscatedFiles);
       noFiles.style.display = 'none';
       filesList.innerHTML = '';
       
       deobfuscatedFiles.forEach((file, index) => {
+        console.log('Rendering file', index, ':', file.name);
         const fileCard = document.createElement('div');
         fileCard.className = 'file-card';
         fileCard.setAttribute('data-file-index', index);
