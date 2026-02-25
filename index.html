@@ -703,7 +703,7 @@
 
 <div class="processing-overlay" id="processingOverlay">
   <div class="processing-spinner"></div>
-  <div class="processing-text">Deobfuscating Script</div>
+  <div class="processing-text" id="processingText">Deobfuscating Script</div>
   <div class="processing-step" id="processingStep">Initializing...</div>
   <div class="progress-bar-wrapper">
     <div class="progress-bar-fill" id="progressBar"></div>
@@ -776,8 +776,35 @@
     "Complete."
   ];
 
-  function isLuaArmor(url) {
-    return url.toLowerCase().includes('luaarmor');
+  const validKeywords = [
+    'luaarmor',
+    'lua-armor',
+    'lua_armor',
+    'junkie',
+    'junk1e',
+    'jnk',
+    'luaobfuscator',
+    'lua-obfuscator',
+    'obfuscated',
+    'protected'
+  ];
+
+  function isValidScript(url) {
+    const lower = url.toLowerCase();
+    for (let i = 0; i < validKeywords.length; i++) {
+      if (lower.includes(validKeywords[i])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function getDetectedType(url) {
+    const lower = url.toLowerCase();
+    if (lower.includes('junkie') || lower.includes('junk1e') || lower.includes('jnk')) {
+      return 'junkie';
+    }
+    return 'luaarmor';
   }
 
   function startDeobfuscation() {
@@ -791,25 +818,30 @@
       return;
     }
 
-    if (!isLuaArmor(url)) {
-      showError("The provided URL does not contain a valid LuaArmor protected script. No LuaArmor signature detected in the URL.");
+    if (!isValidScript(url)) {
+      showError("The provided URL does not contain a valid protected script. No LuaArmor or Junkie signature detected in the URL. Please provide a valid obfuscated script URL.");
       return;
     }
+
+    const detectedType = getDetectedType(url);
 
     const overlay = document.getElementById('processingOverlay');
     const stepEl = document.getElementById('processingStep');
     const progressBar = document.getElementById('progressBar');
     const deobfBtn = document.getElementById('deobfBtn');
+    const processingText = document.getElementById('processingText');
 
     deobfBtn.disabled = true;
     overlay.classList.add('active');
     progressBar.style.width = '0%';
 
     let steps;
-    if (selectedMode === 'junkie') {
+    if (selectedMode === 'junkie' || detectedType === 'junkie') {
       steps = fakeStepsJunkie;
+      processingText.textContent = 'Deobfuscating Junkie Script';
     } else {
       steps = fakeStepsLuaArmor;
+      processingText.textContent = 'Deobfuscating LuaArmor Script';
     }
 
     let stepIndex = 0;
@@ -828,7 +860,7 @@
         setTimeout(() => {
           overlay.classList.remove('active');
           deobfBtn.disabled = false;
-          showResult();
+          showResult(detectedType);
         }, 500);
       }
     }
@@ -836,7 +868,7 @@
     setTimeout(nextStep, 400);
   }
 
-  function showResult() {
+  function showResult(detectedType) {
     const resultSection = document.getElementById('resultSection');
     const resultLink = document.getElementById('resultLink');
     const metaMode = document.getElementById('metaMode');
@@ -852,7 +884,7 @@
     if (selectedMode === 'luaarmor') modeLabel = 'LuaArmor';
     else if (selectedMode === 'junkie') modeLabel = 'Junkie';
 
-    metaMode.textContent = "Mode: " + modeLabel;
+    metaMode.textContent = "Mode: " + modeLabel + " | Detected: " + (detectedType === 'junkie' ? 'Junkie' : 'LuaArmor');
     metaTime.textContent = "Time: " + fakeTime + "s";
     document.getElementById('resultUploaded').textContent = "Uploaded to Pastefy";
 
