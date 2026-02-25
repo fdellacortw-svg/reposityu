@@ -317,7 +317,6 @@
     stroke-width: 2;
   }
 
-  /* Processing Overlay */
   .processing-overlay {
     display: none;
     position: fixed;
@@ -379,7 +378,6 @@
     transition: width 0.3s ease;
   }
 
-  /* Result */
   .result-section {
     display: none;
     margin-top: 24px;
@@ -498,7 +496,6 @@
     margin-bottom: 12px;
   }
 
-  /* Error */
   .error-card {
     background: rgba(255,50,50,0.05);
     border: 1px solid rgba(255,50,50,0.15);
@@ -541,7 +538,6 @@
     line-height: 1.6;
   }
 
-  /* Footer */
   .footer {
     text-align: center;
     margin-top: 30px;
@@ -550,12 +546,6 @@
     letter-spacing: 1px;
   }
 
-  .footer a {
-    color: rgba(255,255,255,0.3);
-    text-decoration: none;
-  }
-
-  /* Stats bar */
   .stats-bar {
     display: flex;
     justify-content: center;
@@ -666,6 +656,7 @@
       <div class="mode-selector">
         <button class="mode-btn active" data-mode="ultlua" onclick="selectMode(this)">ULT Lua</button>
         <button class="mode-btn" data-mode="luaarmor" onclick="selectMode(this)">LuaArmor</button>
+        <button class="mode-btn" data-mode="junkie" onclick="selectMode(this)">Junkie</button>
       </div>
     </div>
 
@@ -701,7 +692,7 @@
         <div class="error-dot"></div>
         <div class="error-title">Detection Failed</div>
       </div>
-      <p class="error-msg" id="errorMsg">The provided URL does not contain a valid LuaArmor protected script. Please provide a valid LuaArmor script URL.</p>
+      <p class="error-msg" id="errorMsg"></p>
     </div>
   </div>
 
@@ -710,7 +701,6 @@
   </div>
 </div>
 
-<!-- Processing Overlay -->
 <div class="processing-overlay" id="processingOverlay">
   <div class="processing-spinner"></div>
   <div class="processing-text">Deobfuscating Script</div>
@@ -721,7 +711,6 @@
 </div>
 
 <script>
-  // Create floating particles
   const particlesContainer = document.getElementById('particles');
   for (let i = 0; i < 30; i++) {
     const particle = document.createElement('div');
@@ -741,7 +730,7 @@
     selectedMode = btn.dataset.mode;
   }
 
-  const fakeSteps = [
+  const fakeStepsLuaArmor = [
     "Initializing bytecode parser...",
     "Fetching remote script...",
     "Analyzing obfuscation layers...",
@@ -764,6 +753,29 @@
     "Complete."
   ];
 
+  const fakeStepsJunkie = [
+    "Initializing Junkie decoder...",
+    "Fetching remote script...",
+    "Detecting Junkie obfuscation version...",
+    "Extracting packed payload...",
+    "Decoding base64 layers...",
+    "Unwrapping string encryption...",
+    "Resolving Junkie VM opcodes...",
+    "Decompiling virtual instructions...",
+    "Reconstructing AST nodes...",
+    "Mapping local variable scopes...",
+    "Removing anti-tamper checks...",
+    "Stripping junk code insertions...",
+    "Resolving dynamic string calls...",
+    "Rebuilding function structure...",
+    "Inlining obfuscated wrappers...",
+    "Restoring readable identifiers...",
+    "Performing syntax validation...",
+    "Final cleanup pass...",
+    "Uploading to Pastefy...",
+    "Complete."
+  ];
+
   function isLuaArmor(url) {
     return url.toLowerCase().includes('luaarmor');
   }
@@ -771,7 +783,6 @@
   function startDeobfuscation() {
     const url = document.getElementById('urlInput').value.trim();
 
-    // Hide previous results
     document.getElementById('resultSection').classList.remove('active');
     document.getElementById('errorCard').classList.remove('active');
 
@@ -780,13 +791,11 @@
       return;
     }
 
-    // Check if it contains luaarmor
     if (!isLuaArmor(url)) {
       showError("The provided URL does not contain a valid LuaArmor protected script. No LuaArmor signature detected in the URL.");
       return;
     }
 
-    // Start fake processing
     const overlay = document.getElementById('processingOverlay');
     const stepEl = document.getElementById('processingStep');
     const progressBar = document.getElementById('progressBar');
@@ -796,12 +805,19 @@
     overlay.classList.add('active');
     progressBar.style.width = '0%';
 
+    let steps;
+    if (selectedMode === 'junkie') {
+      steps = fakeStepsJunkie;
+    } else {
+      steps = fakeStepsLuaArmor;
+    }
+
     let stepIndex = 0;
-    const totalSteps = fakeSteps.length;
+    const totalSteps = steps.length;
 
     function nextStep() {
       if (stepIndex < totalSteps) {
-        stepEl.textContent = fakeSteps[stepIndex];
+        stepEl.textContent = steps[stepIndex];
         const progress = ((stepIndex + 1) / totalSteps) * 100;
         progressBar.style.width = progress + '%';
         stepIndex++;
@@ -809,7 +825,6 @@
         const delay = 300 + Math.random() * 800;
         setTimeout(nextStep, delay);
       } else {
-        // Done
         setTimeout(() => {
           overlay.classList.remove('active');
           deobfBtn.disabled = false;
@@ -832,13 +847,17 @@
 
     resultLink.href = outputUrl;
     resultLink.textContent = outputUrl;
-    metaMode.textContent = "Mode: " + (selectedMode === 'ultlua' ? 'ULT Lua' : 'LuaArmor');
+
+    let modeLabel = 'ULT Lua';
+    if (selectedMode === 'luaarmor') modeLabel = 'LuaArmor';
+    else if (selectedMode === 'junkie') modeLabel = 'Junkie';
+
+    metaMode.textContent = "Mode: " + modeLabel;
     metaTime.textContent = "Time: " + fakeTime + "s";
     document.getElementById('resultUploaded').textContent = "Uploaded to Pastefy";
 
     resultSection.classList.add('active');
 
-    // Increment fake counter
     const statEl = document.getElementById('statScripts');
     let val = parseInt(statEl.textContent.replace(/,/g, ''));
     val++;
@@ -860,7 +879,6 @@
     });
   }
 
-  // Enter key support
   document.getElementById('urlInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') {
       startDeobfuscation();
